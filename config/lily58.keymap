@@ -13,21 +13,14 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // Tap dance definitions
-        behaviors {
-            td_esc_ctrl: td_esc_ctrl {
-                compatible = "zmk,behavior-tap-dance";
-                label = "ESC_CTRL";
-                #binding-cells = <0>;
-                tapping-term-ms = <200>;
-                bindings = <&kp ESC>, <&kp LCTRL>;
-            };
-        };
-
-        // ───────────────────────────
-        // Layer 0 (Base)
-        // ───────────────────────────
-        layer_0 {
+        default_layer {
+            display-name = "Default Layer";
+// ------------------------------------------------------------------------------------------------------------
+// |  ESC  |  1  |  2  |  3   |  4   |  5     |                   |  6    |  7    |  8    |  9   |   0   |   `   |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T     |                   |  Y    |  U    |  I    |  O   |   P   |   -   |
+// |  CTRL |  A  |  S  |  D   |  F   |  G     |                   |  H    |  J    |  K    |  L   |   ;   |   '   |
+// | SHIFT |  Z  |  X  |  C   |  V   |  B     |                   |  N    |  M    |  ,    |  .   |   /   | SHIFT |
+//                     | ALT  | GUI  |  SPACE |                   | ENTER | BSPC  | GUI   |
             bindings = <
                 // Left side
                 &kp ESC    &kp 1      &kp 2      &kp 3      &kp 4      &kp 5
@@ -43,12 +36,18 @@
                 &kp RSHIFT &kp SLASH  &kp DOT    &kp COMMA  &kp M      &kp N
                                 &none   &none   &none   &kp LALT  &kp RCTRL &kp ENTER
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        // ───────────────────────────
-        // Layer 1 (Function / Navigation)
-        // ───────────────────────────
-        layer_1 {
+        lower_layer {
+            display-name = "Lower Layer";
+// ------------------------------------------------------------------------------------------------------------
+// | BTCLR | BT1 | BT2 |  BT3 |  BT4 |  BT5 |                   |      |       |       |      |       |       |
+// |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   |  F10 |  F11  |  F12  |
+// |   `   |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
+// |       |     |     |      |      |      |        |  |       |      |  _    |  +    |  {   |   }   |  "|"  |
+//                     |      |      |      |        |  |       |      |       |       |
             bindings = <
                 // Left side
                 &kp GRAVE  &kp F1     &kp F2     &kp 3      &kp F4     &kp F5
@@ -64,6 +63,27 @@
                 &trans     &kp BSLH   &trans     &trans     &trans     &trans
                                 &none   &none   &none   &kp RALT  &trans  &trans
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        raise_layer {
+            display-name = "Raise Layer";
+// ------------------------------------------------------------------------------------------------------------
+// |       |     |     |      |      |      |                   |      |       |       |      |       |       |
+// |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |   7   |   8   |  9   |   0   |       |
+// |   F1  |  F2 |  F3 |  F4  |  F5  |  F6  |                   |      |   <-  |   v   |  ^   |  ->   |       |
+// |   F7  |  F8 |  F9 |  F10 |  F11 |  F12 |        |  |       |  +   |   -   |   =   |  [   |   ]   |   \   |
+//                     |      |      |      |        |  |       |      |       |       |
+            bindings = <
+&trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
+&kp GRAVE &kp N1 &kp N2 &kp N3  &kp N4  &kp N5                       &kp N6      &kp N7    &kp N8    &kp N9   &kp N0    &trans
+&kp F1    &kp F2 &kp F3 &kp F4  &kp F5  &kp F6                       &trans      &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &trans
+&kp F7    &kp F8 &kp F9 &kp F10 &kp F11 &kp F12   &trans   &trans    &kp KP_PLUS &kp MINUS &kp EQUAL &kp LBKT &kp RBKT  &kp BSLH
+                        &trans  &trans  &trans    &trans   &trans    &trans      &trans    &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
